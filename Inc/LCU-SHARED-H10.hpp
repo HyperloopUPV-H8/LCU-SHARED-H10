@@ -7,4 +7,6 @@
 
 #pragma once
 
-#include "ST-LIB.hpp"
+#include "Communication/Communication.hpp"
+
+uint8_t curr_state = 0;
