@@ -1,0 +1,6 @@
+/home/iker_ubide/STM32CubeIDE/workspace_1.16.1/LCU-SHARED-H10/out/build/board-debug/CMakeFiles/lcu-shared.dir
+/home/iker_ubide/STM32CubeIDE/workspace_1.16.1/LCU-SHARED-H10/out/build/board-debug/CMakeFiles/edit_cache.dir
+/home/iker_ubide/STM32CubeIDE/workspace_1.16.1/LCU-SHARED-H10/out/build/board-debug/CMakeFiles/rebuild_cache.dir
+/home/iker_ubide/STM32CubeIDE/workspace_1.16.1/LCU-SHARED-H10/out/build/board-debug/deps/ST-LIB/CMakeFiles/st-lib.dir
+/home/iker_ubide/STM32CubeIDE/workspace_1.16.1/LCU-SHARED-H10/out/build/board-debug/deps/ST-LIB/CMakeFiles/edit_cache.dir
+/home/iker_ubide/STM32CubeIDE/workspace_1.16.1/LCU-SHARED-H10/out/build/board-debug/deps/ST-LIB/CMakeFiles/rebuild_cache.dir
