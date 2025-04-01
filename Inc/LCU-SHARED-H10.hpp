@@ -9,4 +9,4 @@
 
 #include "Communication/Communication.hpp"
 
-uint8_t curr_state = 0;
+extern uint8_t *curr_state;

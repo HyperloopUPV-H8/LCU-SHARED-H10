@@ -70,7 +70,7 @@ void SPI_DATA::start()
     
     id_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
     id_buffer_packet = new SPIPacket<1, uint8_t>(&id_buffer);
-    state_packet = new SPIPacket<1, uint8_t>(&curr_state);
+    state_packet = new SPIPacket<1, uint8_t>(curr_state);
     data_LPU_slave_packet = new SPIPacket<224, SHUNT_ARR_TYPE, VBAT_ARR_TYPE, LDU_REF_ARR_TYPE, LDU_EXIT_ARR_TYPE, DIS_REF_ARR_TYPE, DIS_EXIT_ARR_TYPE>(
         &shunt_arr[0], &shunt_arr[1], &shunt_arr[2], &shunt_arr[3], &shunt_arr[4], &shunt_arr[5], &shunt_arr[6], &shunt_arr[7], &shunt_arr[8], &shunt_arr[9],
         &vbat_arr[0], &vbat_arr[1], &vbat_arr[2], &vbat_arr[3], &vbat_arr[4], &vbat_arr[5], &vbat_arr[6],&vbat_arr[7], &vbat_arr[8], &vbat_arr[9],

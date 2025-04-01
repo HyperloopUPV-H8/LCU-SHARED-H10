@@ -36,7 +36,7 @@ extern uint16_t state_id;
 #define DIS_REF_ARR_TYPE float, float, float, float, float, float, float, float
 #define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
 
-extern uint8_t curr_state;
+extern uint8_t *curr_state;
 
 class SPI_DATA
 {
