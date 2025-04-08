@@ -22,6 +22,7 @@
 #define START_PWM_SLAVE_ID 8885
 #define STOP_PWM_SLAVE_ID 8884
 #define RECEIVE_AIRGAP_ID 8883
+#define ENTER_BOOSTER_ID 8882
 
 extern uint8_t set_ldu_spi_id;
 extern uint8_t en_ldu_spi_id;
@@ -43,6 +44,7 @@ class SPI_DATA
     public:
     //shared values
     static uint8_t id_ldu;
+    static uint8_t booster_status;
     static float duty;
     static float desired_current;
     static float desired_distance;
@@ -63,6 +65,7 @@ class SPI_DATA
     static SPIBasePacket *data_LPU_slave_packet;
     static SPIBasePacket *data_arigap_packet;
     static SPIBasePacket *current_ldu_packet;
+    static SPIBasePacket *booster_control_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;
@@ -74,6 +77,7 @@ class SPI_DATA
     static SPIStackOrder* stop_control_order;
     static SPIStackOrder* start_pwm_order;
     static SPIStackOrder* stop_pwm_order;
+    static SPIStackOrder* booster_control_order;
 
     static unordered_map<uint8_t, SPIBasePacket*> packets;
     static float shunt_arr[10];

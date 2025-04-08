@@ -3,6 +3,7 @@
 #define MAX_LEN_DATA 30
 
 uint8_t SPI_DATA::id_ldu = 0;
+uint8_t SPI_DATA::booster_status = 0;
 float SPI_DATA::duty = 0.0;
 float SPI_DATA::desired_current = 0.0;
 uint32_t SPI_DATA::frequency = 0;
@@ -22,6 +23,7 @@ SPIBasePacket* SPI_DATA::data_arigap_packet = nullptr;
 SPIBasePacket* SPI_DATA::nonePacket = nullptr;
 SPIBasePacket* SPI_DATA::en_buffer_packet = nullptr;
 SPIBasePacket* SPI_DATA::current_ldu_packet = nullptr;
+SPIBasePacket* SPI_DATA::booster_control_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
@@ -33,6 +35,7 @@ SPIStackOrder* SPI_DATA::start_control_order = nullptr;
 SPIStackOrder* SPI_DATA::stop_control_order = nullptr;
 SPIStackOrder* SPI_DATA::start_pwm_order = nullptr;
 SPIStackOrder* SPI_DATA::stop_pwm_order = nullptr;
+SPIStackOrder* SPI_DATA::booster_control_order = nullptr;
 
 unordered_map<uint8_t, SPIBasePacket*> SPI_DATA::packets = {};
 
@@ -84,6 +87,7 @@ void SPI_DATA::start()
     nonePacket = new SPIPacket<0>;
 
     current_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_current);
+    booster_control_packet = new SPIPacket<1, uint8_t>(&booster_status);
 
 
     initial_order = new SPIStackOrder(STATE_ID, *state_packet, *nonePacket);
@@ -102,6 +106,8 @@ void SPI_DATA::start()
 
     start_pwm_order = new SPIStackOrder(START_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
     stop_pwm_order = new SPIStackOrder(STOP_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
+
+    booster_control_order = new SPIStackOrder(ENTER_BOOSTER_ID, *booster_control_packet, *nonePacket);
 
 
 
