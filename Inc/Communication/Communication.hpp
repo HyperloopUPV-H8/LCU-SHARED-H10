@@ -45,7 +45,6 @@ class SPI_DATA
 {
     public:
     //shared values
-    static uint8_t curr_state_shared, curr_state_horizontal_shared, curr_state_vertical_shared;
     static uint8_t id_ldu;
     static uint8_t booster_status;
     static float duty;
