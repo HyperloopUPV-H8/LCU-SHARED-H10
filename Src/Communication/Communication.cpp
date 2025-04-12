@@ -94,7 +94,7 @@ void SPI_DATA::start()
     booster_control_packet = new SPIPacket<1, uint8_t>(&booster_status);
 
 
-    initial_order = new SPIStackOrder(STATE_ID, *state_packet, *nonePacket);
+    initial_order = new SPIStackOrder(STATE_ID, *nonePacket, *nonePacket);
 
 
     LDU_order = new SPIStackOrder(SET_LDU_ID, *LDU_packet, *nonePacket);
