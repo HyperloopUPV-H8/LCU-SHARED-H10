@@ -74,7 +74,8 @@ void SPI_DATA::start()
     id_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
     id_buffer_packet = new SPIPacket<1, uint8_t>(&id_buffer);
     state_packet = new SPIPacket<1, uint8_t>(curr_state);
-    data_LPU_slave_packet = new SPIPacket<224, SHUNT_ARR_TYPE, VBAT_ARR_TYPE, LDU_REF_ARR_TYPE, LDU_EXIT_ARR_TYPE, DIS_REF_ARR_TYPE, DIS_EXIT_ARR_TYPE>(
+    data_LPU_slave_packet = new SPIPacket<227, uint8_t, uint8_t, uint8_t, SHUNT_ARR_TYPE, VBAT_ARR_TYPE, LDU_REF_ARR_TYPE, LDU_EXIT_ARR_TYPE, DIS_REF_ARR_TYPE, DIS_EXIT_ARR_TYPE>(
+        curr_state, curr_state_horizontal, curr_state_vertical,
         &shunt_arr[0], &shunt_arr[1], &shunt_arr[2], &shunt_arr[3], &shunt_arr[4], &shunt_arr[5], &shunt_arr[6], &shunt_arr[7], &shunt_arr[8], &shunt_arr[9],
         &vbat_arr[0], &vbat_arr[1], &vbat_arr[2], &vbat_arr[3], &vbat_arr[4], &vbat_arr[5], &vbat_arr[6],&vbat_arr[7], &vbat_arr[8], &vbat_arr[9],
         &ldu_ref[0], &ldu_ref[1], &ldu_ref[2], &ldu_ref[3], &ldu_ref[4], &ldu_ref[5], &ldu_ref[6], &ldu_ref[7], &ldu_ref[8], &ldu_ref[9],
@@ -94,7 +95,7 @@ void SPI_DATA::start()
 
 
     LDU_order = new SPIStackOrder(SET_LDU_ID, *LDU_packet, *nonePacket);
-    send_state_receive_data_lpu_order = new SPIStackOrder(SEND_STATE_RECV_LPU_ID, *state_packet, *data_LPU_slave_packet);
+    send_state_receive_data_lpu_order = new SPIStackOrder(SEND_STATE_RECV_LPU_ID, *nonePacket, *data_LPU_slave_packet);
     receive_data_airgap_order = new SPIStackOrder(RECEIVE_AIRGAP_ID, *nonePacket, *data_arigap_packet);
 
     en_LDU_buffer_order = new SPIStackOrder(EN_LDU_ID, *en_buffer_packet, *nonePacket); 
