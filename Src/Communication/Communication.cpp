@@ -7,7 +7,6 @@ uint8_t SPI_DATA::booster_status = 0;
 float SPI_DATA::duty = 0.0;
 float SPI_DATA::desired_current = 0.0;
 uint32_t SPI_DATA::frequency = 0;
-int64_t SPI_DATA::datetime = 0;
 uint8_t SPI_DATA::id_buffer = 0;
 
 uint8_t SPI_DATA::spi_id = 0;
@@ -15,9 +14,7 @@ uint8_t SPI_DATA::en_buffer_byte = 0;
 float SPI_DATA::desired_distance = 0.0;
 
 SPIBasePacket* SPI_DATA::LDU_packet = nullptr;
-SPIBasePacket* SPI_DATA::id_buffer_packet = nullptr;
 SPIBasePacket* SPI_DATA::id_ldu_packet = nullptr;
-SPIBasePacket* SPI_DATA::state_packet = nullptr;
 SPIBasePacket* SPI_DATA::data_LPU_slave_packet = nullptr;
 SPIBasePacket* SPI_DATA::data_arigap_packet = nullptr;
 SPIBasePacket* SPI_DATA::nonePacket = nullptr;
@@ -72,8 +69,6 @@ void SPI_DATA::start()
     LDU_packet = new SPIPacket<9, PACKET_LDU_TYPE>(&id_ldu, &duty, &frequency);
     
     id_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
-    id_buffer_packet = new SPIPacket<1, uint8_t>(&id_buffer);
-    state_packet = new SPIPacket<1, uint8_t>(curr_state);
     data_LPU_slave_packet = new SPIPacket<227, uint8_t, uint8_t, uint8_t, SHUNT_ARR_TYPE, VBAT_ARR_TYPE, LDU_REF_ARR_TYPE, LDU_EXIT_ARR_TYPE, DIS_REF_ARR_TYPE, DIS_EXIT_ARR_TYPE>(
         curr_state, curr_state_horizontal, curr_state_vertical,
         &shunt_arr[0], &shunt_arr[1], &shunt_arr[2], &shunt_arr[3], &shunt_arr[4], &shunt_arr[5], &shunt_arr[6], &shunt_arr[7], &shunt_arr[8], &shunt_arr[9],

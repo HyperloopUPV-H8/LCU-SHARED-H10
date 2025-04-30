@@ -51,7 +51,6 @@ class SPI_DATA
     static float desired_current;
     static float desired_distance;
     static uint32_t frequency;
-    static int64_t datetime;
     static uint8_t id_buffer;
 
     static uint8_t confirm_byte;
@@ -60,8 +59,6 @@ class SPI_DATA
     static uint8_t spi_id;
     static SPIBasePacket *LDU_packet;
     static SPIBasePacket *id_ldu_packet;
-    static SPIBasePacket *id_buffer_packet;
-    static SPIBasePacket *state_packet;
     static SPIBasePacket *nonePacket;
     static SPIBasePacket *en_buffer_packet;
     static SPIBasePacket *data_LPU_slave_packet;
