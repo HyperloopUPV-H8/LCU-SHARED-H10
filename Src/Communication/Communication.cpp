@@ -2,54 +2,8 @@
 
 #define MAX_LEN_DATA 30
 
-uint8_t SPI_DATA::id_ldu = 0;
-uint8_t SPI_DATA::booster_status = 0;
-float SPI_DATA::duty = 0.0;
-float SPI_DATA::desired_current = 0.0;
-uint32_t SPI_DATA::frequency = 0;
-uint8_t SPI_DATA::id_buffer = 0;
-
-uint8_t SPI_DATA::spi_id = 0;
-uint8_t SPI_DATA::en_buffer_byte = 0;
-float SPI_DATA::desired_distance = 0.0;
-
-SPIBasePacket* SPI_DATA::LDU_packet = nullptr;
-SPIBasePacket* SPI_DATA::id_ldu_packet = nullptr;
-SPIBasePacket* SPI_DATA::data_LPU_slave_packet = nullptr;
-SPIBasePacket* SPI_DATA::data_arigap_packet = nullptr;
-SPIBasePacket* SPI_DATA::nonePacket = nullptr;
-SPIBasePacket* SPI_DATA::en_buffer_packet = nullptr;
-SPIBasePacket* SPI_DATA::current_ldu_packet = nullptr;
-SPIBasePacket* SPI_DATA::booster_control_packet = nullptr;
-
-SPIStackOrder* SPI_DATA::LDU_order = nullptr;
-SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
-SPIStackOrder* SPI_DATA::receive_data_airgap_order = nullptr;
-SPIStackOrder* SPI_DATA::initial_order = nullptr;
-SPIStackOrder* SPI_DATA::send_state_receive_data_lpu_order = nullptr;
-SPIStackOrder* SPI_DATA::set_current_order = nullptr;
-SPIStackOrder* SPI_DATA::start_control_order = nullptr;
-SPIStackOrder* SPI_DATA::stop_control_order = nullptr;
-SPIStackOrder* SPI_DATA::start_pwm_order = nullptr;
-SPIStackOrder* SPI_DATA::stop_pwm_order = nullptr;
-SPIStackOrder* SPI_DATA::booster_control_order = nullptr;
-
-unordered_map<uint8_t, SPIBasePacket*> SPI_DATA::packets = {};
 
 uint16_t state_id = 9996;
-
-float SPI_DATA::shunt_arr[10] = {
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-};
-float SPI_DATA::vbat_arr[10] = {};
-float SPI_DATA::ldu_ref[10] = {};
-float SPI_DATA::ldu_exit[10] = {};
-float SPI_DATA::dis_ref[8] = {};
-float SPI_DATA::dis_exit[8] = {};
-
-float SPI_DATA::airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-
-
 
 
 void SPI_DATA::inscribe_spi()
@@ -57,11 +11,6 @@ void SPI_DATA::inscribe_spi()
     spi_id = SPI::inscribe(SPI::spi3);
 	SPI::assign_RS(spi_id, SPI_RS_PIN);
 }
-
-
-
-
-
 
 void SPI_DATA::start()
 {
