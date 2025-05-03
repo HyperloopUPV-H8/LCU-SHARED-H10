@@ -24,9 +24,6 @@
 #define RECEIVE_AIRGAP_ID 8883
 #define ENTER_BOOSTER_ID 8882
 
-extern uint8_t set_ldu_spi_id;
-extern uint8_t en_ldu_spi_id;
-extern uint16_t state_id;
 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
 #define SHUNT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
@@ -78,7 +75,6 @@ class SPI_DATA
     inline static SPIStackOrder* stop_pwm_order = nullptr;
     inline static SPIStackOrder* booster_control_order = nullptr;
 
-    inline static unordered_map<uint8_t, SPIBasePacket*> packets = {};
     inline static float shunt_arr[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     inline static float vbat_arr[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     inline static float ldu_ref[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};

@@ -1,10 +1,5 @@
 #include "Communication/Communication.hpp"
 
-#define MAX_LEN_DATA 30
-
-
-uint16_t state_id = 9996;
-
 
 void SPI_DATA::inscribe_spi()
 {
@@ -14,7 +9,6 @@ void SPI_DATA::inscribe_spi()
 
 void SPI_DATA::start()
 {
-    SPI::start();
     LDU_packet = new SPIPacket<9, PACKET_LDU_TYPE>(&id_ldu, &duty, &frequency);
     
     id_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
@@ -53,7 +47,6 @@ void SPI_DATA::start()
     stop_pwm_order = new SPIStackOrder(STOP_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
 
     booster_control_order = new SPIStackOrder(ENTER_BOOSTER_ID, *booster_control_packet, *nonePacket);
-
 
 
 }
