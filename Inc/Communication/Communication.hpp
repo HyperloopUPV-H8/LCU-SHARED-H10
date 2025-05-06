@@ -42,47 +42,47 @@ class SPI_DATA
 {
     public:
     //shared values
-    inline static uint8_t id_ldu = 0;
-    inline static uint8_t booster_status = 0;
-    inline static float duty = 0.0;
-    inline static float desired_current = 0.0;
-    inline static float desired_distance = 0.0;
-    inline static uint32_t frequency = 0;
-    inline static uint8_t id_buffer ;
+    static uint8_t id_ldu;
+    static uint8_t booster_status;
+    static float duty;
+    static float desired_current;
+    static float desired_distance;
+    static uint32_t frequency;
+    static uint8_t id_buffer;
 
-    inline static uint8_t confirm_byte = 0;
-    inline static uint8_t en_buffer_byte = 0;
+    static uint8_t confirm_byte;
+    static uint8_t en_buffer_byte;
 
-    inline static uint8_t spi_id = 0;
-    inline static SPIBasePacket *LDU_packet = nullptr;
-    inline static SPIBasePacket *id_ldu_packet = nullptr;
-    inline static SPIBasePacket *nonePacket = nullptr;
-    inline static SPIBasePacket *en_buffer_packet = nullptr;
-    inline static SPIBasePacket *data_LPU_slave_packet = nullptr;
-    inline static SPIBasePacket *data_arigap_packet = nullptr;
-    inline static SPIBasePacket *current_ldu_packet = nullptr;
-    inline static SPIBasePacket *booster_control_packet = nullptr;
+    static uint8_t spi_id;
+    static SPIBasePacket *LDU_packet;
+    static SPIBasePacket *id_ldu_packet;
+    static SPIBasePacket *nonePacket;
+    static SPIBasePacket *en_buffer_packet;
+    static SPIBasePacket *data_LPU_slave_packet;
+    static SPIBasePacket *data_arigap_packet;
+    static SPIBasePacket *current_ldu_packet;
+    static SPIBasePacket *booster_control_packet;
 
-    inline static SPIStackOrder* LDU_order = nullptr;
-    inline static SPIStackOrder* en_LDU_buffer_order = nullptr;
-    inline static SPIStackOrder* receive_data_airgap_order = nullptr;
-    inline static SPIStackOrder* send_state_receive_data_lpu_order = nullptr; 
-    inline static SPIStackOrder* initial_order = nullptr;
-    inline static SPIStackOrder* set_current_order = nullptr;
-    inline static SPIStackOrder* start_control_order = nullptr;
-    inline static SPIStackOrder* stop_control_order = nullptr;
-    inline static SPIStackOrder* start_pwm_order = nullptr;
-    inline static SPIStackOrder* stop_pwm_order = nullptr;
-    inline static SPIStackOrder* booster_control_order = nullptr;
+    static SPIStackOrder* LDU_order;
+    static SPIStackOrder* en_LDU_buffer_order;
+    static SPIStackOrder* receive_data_airgap_order;
+    static SPIStackOrder* send_state_receive_data_lpu_order; 
+    static SPIStackOrder* initial_order;
+    static SPIStackOrder* set_current_order;
+    static SPIStackOrder* start_control_order;
+    static SPIStackOrder* stop_control_order;
+    static SPIStackOrder* start_pwm_order;
+    static SPIStackOrder* stop_pwm_order;
+    static SPIStackOrder* booster_control_order;
 
-    inline static float shunt_arr[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    inline static float vbat_arr[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    inline static float ldu_ref[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    inline static float ldu_exit[10] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    static float shunt_arr[10];
+    static float vbat_arr[10];
+    static float ldu_ref[10];
+    static float ldu_exit[10];
 
-    inline static float airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    inline static float dis_exit[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    inline static float dis_ref[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    static float airgap_arr[8];
+    static float dis_exit[8];
+    static float dis_ref[8];
 
 
 
