@@ -15,6 +15,8 @@
 #define START_PWM_ID 9992
 #define STOP_PWM_ID 9991
 
+#define RECV_REF_CURRENT_ID 8881
+#define RECV_REF_1DOF_ID 8880
 #define SEND_STATE_RECV_LPU_ID 8888
 #define SET_DESIRED_CURRENT_ID 8889
 #define START_CONTROL_SLAVE_ID 8887
@@ -59,6 +61,8 @@ class SPI_DATA
     inline static SPIBasePacket *nonePacket = nullptr;
     inline static SPIBasePacket *en_buffer_packet = nullptr;
     inline static SPIBasePacket *data_LPU_slave_packet = nullptr;
+    inline static SPIBasePacket *data_refs_control_current = nullptr;
+    inline static SPIBasePacket *data_refs_control_1dof = nullptr;
     inline static SPIBasePacket *data_arigap_packet = nullptr;
     inline static SPIBasePacket *current_ldu_packet = nullptr;
     inline static SPIBasePacket *booster_control_packet = nullptr;
@@ -67,6 +71,8 @@ class SPI_DATA
     inline static SPIStackOrder* en_LDU_buffer_order = nullptr;
     inline static SPIStackOrder* receive_data_airgap_order = nullptr;
     inline static SPIStackOrder* send_state_receive_data_lpu_order = nullptr; 
+    inline static SPIStackOrder* receive_ref_current_order = nullptr; 
+    inline static SPIStackOrder* receive_ref_1dof_order = nullptr; 
     inline static SPIStackOrder* initial_order = nullptr;
     inline static SPIStackOrder* set_current_order = nullptr;
     inline static SPIStackOrder* start_control_order = nullptr;
