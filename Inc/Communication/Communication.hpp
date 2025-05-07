@@ -61,9 +61,11 @@ class SPI_DATA
     static SPIBasePacket *data_LPU_slave_packet;
     static SPIBasePacket *data_arigap_packet;
     static SPIBasePacket *current_ldu_packet;
+    static SPIBasePacket *states_packets;
     static SPIBasePacket *booster_control_packet;
 
     static SPIStackOrder* LDU_order;
+    static SPIStackOrder* states_order;
     static SPIStackOrder* en_LDU_buffer_order;
     static SPIStackOrder* receive_data_airgap_order;
     static SPIStackOrder* send_state_receive_data_lpu_order; 

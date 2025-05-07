@@ -29,9 +29,11 @@ SPIBasePacket* SPI_DATA::data_arigap_packet = nullptr;
 SPIBasePacket* SPI_DATA::nonePacket = nullptr;
 SPIBasePacket* SPI_DATA::en_buffer_packet = nullptr;
 SPIBasePacket* SPI_DATA::current_ldu_packet = nullptr;
+SPIBasePacket* SPI_DATA::states_packets = nullptr;
 SPIBasePacket* SPI_DATA::booster_control_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
+SPIStackOrder* SPI_DATA::states_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
 SPIStackOrder* SPI_DATA::receive_data_airgap_order = nullptr;
 SPIStackOrder* SPI_DATA::initial_order = nullptr;
@@ -59,6 +61,10 @@ void SPI_DATA::start()
         &shunt_arr[0], &shunt_arr[1], &shunt_arr[2], &shunt_arr[3], &shunt_arr[4], &shunt_arr[5], &shunt_arr[6], &shunt_arr[7], &shunt_arr[8], &shunt_arr[9],
         &vbat_arr[0], &vbat_arr[1], &vbat_arr[2], &vbat_arr[3], &vbat_arr[4], &vbat_arr[5], &vbat_arr[6],&vbat_arr[7], &vbat_arr[8], &vbat_arr[9]
     );
+    states_packets = new SPIPacket<3, uint8_t, uint8_t, uint8_t>(
+        curr_state, curr_state_horizontal, curr_state_vertical
+    );
+
     data_arigap_packet = new SPIPacket<32, AIRGAP_ARR_TYPE>(&airgap_arr[0], &airgap_arr[1], &airgap_arr[2], &airgap_arr[3], &airgap_arr[4], &airgap_arr[5], &airgap_arr[6], &airgap_arr[7]);
     en_buffer_packet = new SPIPacket<1, uint8_t>(&en_buffer_byte);
     nonePacket = new SPIPacket<0>;
@@ -69,6 +75,7 @@ void SPI_DATA::start()
 
     initial_order = new SPIStackOrder(STATE_ID, *nonePacket, *nonePacket);
 
+    states_order = new SPIStackOrder(STATE_ID, *nonePacket, *states_packets);
 
     LDU_order = new SPIStackOrder(SET_LDU_ID, *LDU_packet, *nonePacket);
     send_state_receive_data_lpu_order = new SPIStackOrder(SEND_STATE_RECV_LPU_ID, *nonePacket, *data_LPU_slave_packet);
