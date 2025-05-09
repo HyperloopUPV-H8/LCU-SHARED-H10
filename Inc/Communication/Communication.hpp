@@ -23,6 +23,7 @@
 #define STOP_PWM_SLAVE_ID 8884
 #define RECEIVE_AIRGAP_ID 8883
 #define RECEIVE_REF_ID 8882
+#define FAULT_ID 7777
 
 extern uint8_t set_ldu_spi_id;
 extern uint8_t en_ldu_spi_id;
@@ -77,6 +78,7 @@ class SPI_DATA
     static SPIStackOrder* start_pwm_order;
     static SPIStackOrder* stop_pwm_order;
     static SPIStackOrder* receive_refs_order;
+    static SPIStackOrder* fault_order;
 
     static unordered_map<uint8_t, SPIBasePacket*> packets;
     static float shunt_arr[10];

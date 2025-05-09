@@ -35,6 +35,7 @@ SPIStackOrder* SPI_DATA::stop_control_order = nullptr;
 SPIStackOrder* SPI_DATA::start_pwm_order = nullptr;
 SPIStackOrder* SPI_DATA::stop_pwm_order = nullptr;
 SPIStackOrder* SPI_DATA::receive_refs_order = nullptr;
+SPIStackOrder* SPI_DATA::fault_order = nullptr;
 
 unordered_map<uint8_t, SPIBasePacket*> SPI_DATA::packets = {};
 
@@ -107,7 +108,7 @@ void SPI_DATA::start()
     start_pwm_order = new SPIStackOrder(START_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
     stop_pwm_order = new SPIStackOrder(STOP_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
 
-
+    fault_order = new SPIStackOrder(FAULT_ID, *nonePacket, *nonePacket);
 
 }
 
