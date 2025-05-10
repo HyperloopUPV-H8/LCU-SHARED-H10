@@ -26,7 +26,7 @@
 #define RECEIVE_REF_ID 8882
 #define FAULT_ID 7777
 
-
+#define STATES_TYPE uint8_t, uint8_t, uint8_t 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
 #define SHUNT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
 #define AIRGAP_ARR_TYPE float, float, float, float, float, float, float, float
