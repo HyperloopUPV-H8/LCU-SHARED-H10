@@ -12,6 +12,7 @@ uint8_t SPI_DATA::id_buffer = 0;
 uint8_t SPI_DATA::spi_id = 0;
 uint8_t SPI_DATA::en_buffer_byte = 0;
 float SPI_DATA::desired_distance = 0.0;
+float SPI_DATA::vbat_fixed = 200.0F;
 
 SPIBasePacket* SPI_DATA::LDU_packet = nullptr;
 SPIBasePacket* SPI_DATA::id_buffer_packet = nullptr;
@@ -23,6 +24,7 @@ SPIBasePacket* SPI_DATA::nonePacket = nullptr;
 SPIBasePacket* SPI_DATA::en_buffer_packet = nullptr;
 SPIBasePacket* SPI_DATA::current_ldu_packet = nullptr;
 SPIBasePacket* SPI_DATA::data_refs_packet = nullptr;
+SPIBasePacket* SPI_DATA::vbat_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
@@ -36,6 +38,7 @@ SPIStackOrder* SPI_DATA::start_pwm_order = nullptr;
 SPIStackOrder* SPI_DATA::stop_pwm_order = nullptr;
 SPIStackOrder* SPI_DATA::receive_refs_order = nullptr;
 SPIStackOrder* SPI_DATA::fault_order = nullptr;
+SPIStackOrder* SPI_DATA::send_fixed_vbat_order = nullptr;
 
 unordered_map<uint8_t, SPIBasePacket*> SPI_DATA::packets = {};
 
@@ -58,7 +61,7 @@ float SPI_DATA::airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 void SPI_DATA::inscribe_spi()
 {
     spi_id = SPI::inscribe(SPI::spi3);
-	SPI::assign_RS(spi_id, SPI_RS_PIN);
+	//SPI::assign_RS(spi_id, SPI_RS_PIN);
 }
 
 
@@ -88,6 +91,9 @@ void SPI_DATA::start()
 
     current_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_current);
 
+    vbat_packet = new SPIPacket<4, float>(
+        &vbat_fixed
+    );
 
     initial_order = new SPIStackOrder(STATE_ID, *state_packet, *nonePacket);
 
@@ -109,6 +115,9 @@ void SPI_DATA::start()
     stop_pwm_order = new SPIStackOrder(STOP_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
 
     fault_order = new SPIStackOrder(FAULT_ID, *nonePacket, *nonePacket);
+
+    
+    send_fixed_vbat_order = new SPIStackOrder(VBAT_ID, *vbat_packet, *nonePacket);
 
 }
 

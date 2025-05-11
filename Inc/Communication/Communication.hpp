@@ -24,6 +24,7 @@
 #define RECEIVE_AIRGAP_ID 8883
 #define RECEIVE_REF_ID 8882
 #define FAULT_ID 7777
+#define VBAT_ID 8880
 
 extern uint8_t set_ldu_spi_id;
 extern uint8_t en_ldu_spi_id;
@@ -66,6 +67,7 @@ class SPI_DATA
     static SPIBasePacket *data_arigap_packet;
     static SPIBasePacket *current_ldu_packet;
     static SPIBasePacket *data_refs_packet;
+    static SPIBasePacket *vbat_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;
@@ -79,6 +81,7 @@ class SPI_DATA
     static SPIStackOrder* stop_pwm_order;
     static SPIStackOrder* receive_refs_order;
     static SPIStackOrder* fault_order;
+    static SPIStackOrder* send_fixed_vbat_order;
 
     static unordered_map<uint8_t, SPIBasePacket*> packets;
     static float shunt_arr[10];
@@ -88,6 +91,7 @@ class SPI_DATA
     static float ldu_exit[10];
     static float dis_exit[8];
     static float dis_ref[8];
+    static float vbat_fixed;
 
 
 
