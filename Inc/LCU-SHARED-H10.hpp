@@ -10,3 +10,5 @@
 #include "Communication/Communication.hpp"
 
 extern uint8_t *curr_state;
+extern uint8_t *curr_state_horizontal;
+extern uint8_t *curr_state_vertical;
