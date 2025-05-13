@@ -29,6 +29,7 @@
 
 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
+#define PACKET_STATES_TYPE uint8_t, uint8_t, uint8_t
 #define SHUNT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
 #define AIRGAP_ARR_TYPE float, float, float, float, float, float, float, float
 #define VBAT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
