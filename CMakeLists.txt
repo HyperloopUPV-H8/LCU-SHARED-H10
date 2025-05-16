@@ -20,6 +20,15 @@ message("ST-LIB configured")
 file(GLOB_RECURSE SOURCE_C ${CMAKE_CURRENT_SOURCE_DIR}/Src/*.c)
 file(GLOB_RECURSE SOURCE_CPP ${CMAKE_CURRENT_SOURCE_DIR}/Src/*.cpp)
 
+set(HAL_SOURCE
+  ${CMAKE_CURRENT_SOURCE_DIR}/Src/syscalls.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/Src/sysmem.c
+)
+
+if (NOT CMAKE_CROSSCOMPILING)
+  list(REMOVE_ITEM SOURCE_C ${HAL_SOURCE})
+endif()
+
 add_library(lcu-shared STATIC
   ${SOURCE_C}
   ${SOURCE_CPP}
