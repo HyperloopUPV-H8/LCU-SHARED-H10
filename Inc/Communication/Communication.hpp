@@ -38,6 +38,7 @@
 #define LDU_EXIT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
 #define DIS_REF_ARR_TYPE float, float, float, float, float, float, float, float
 #define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
+#define DIST_AND_ROT_3DOF_TYPE float, float, float, float, float
 
 extern uint8_t *curr_state;
 extern uint8_t *curr_state_horizontal;
@@ -54,6 +55,9 @@ class SPI_DATA
     static float desired_distance;
     static uint32_t frequency;
     static uint8_t id_buffer;
+
+    //3dof values
+    static float values_rot_and_dis[5];
 
     static uint8_t confirm_byte;
     static uint8_t en_buffer_byte;

@@ -11,6 +11,8 @@ float SPI_DATA::dis_exit[8] = {};
 
 float SPI_DATA::airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
+float SPI_DATA::values_rot_and_dis[5] = {};
+
 uint8_t SPI_DATA::id_ldu = 0;
 uint8_t SPI_DATA::booster_status = 0;
 float SPI_DATA::duty = 0.0;
@@ -72,7 +74,10 @@ void SPI_DATA::start()
         &ldu_ref[0], &ldu_ref[1], &ldu_ref[2], &ldu_ref[3], &ldu_ref[4], &ldu_ref[5], &ldu_ref[6], &ldu_ref[7], &ldu_ref[8], &ldu_ref[9],
         &ldu_exit[0], &ldu_exit[1], &ldu_exit[2], &ldu_exit[3], &ldu_exit[4], &ldu_exit[5], &ldu_exit[6], &ldu_exit[7], &ldu_exit[8], &ldu_exit[9]
     );
-    data_arigap_packet = new SPIPacket<32, AIRGAP_ARR_TYPE>(&airgap_arr[0], &airgap_arr[1], &airgap_arr[2], &airgap_arr[3], &airgap_arr[4], &airgap_arr[5], &airgap_arr[6], &airgap_arr[7]);
+    data_arigap_packet = new SPIPacket<52, AIRGAP_ARR_TYPE, DIST_AND_ROT_3DOF_TYPE>(&airgap_arr[0], &airgap_arr[1], &airgap_arr[2], &airgap_arr[3], &airgap_arr[4], &airgap_arr[5], &airgap_arr[6], &airgap_arr[7],
+        &values_rot_and_dis[0], &values_rot_and_dis[1], &values_rot_and_dis[2], &values_rot_and_dis[3], &values_rot_and_dis[4]
+    );
+    
     en_buffer_packet = new SPIPacket<1, uint8_t>(&en_buffer_byte);
     nonePacket = new SPIPacket<0>;
 
