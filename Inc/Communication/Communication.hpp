@@ -17,7 +17,7 @@
 
 #define SEND_STATE_RECV_LPU_ID 8888
 #define SET_DESIRED_CURRENT_ID 8889
-#define START_CONTROL_SLAVE_ID 8887
+#define START_CONTROL_1DOF_ID 8887
 #define STOP_CONTROL_SLAVE_ID 8886
 #define START_PWM_SLAVE_ID 8885
 #define STOP_PWM_SLAVE_ID 8884
@@ -68,6 +68,7 @@ class SPI_DATA
     static SPIBasePacket *booster_control_packet;
     static SPIBasePacket *data_refs_packet;
     static SPIBasePacket *vbat_packet;
+    static SPIBasePacket *distance_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;
@@ -75,7 +76,7 @@ class SPI_DATA
     static SPIStackOrder* send_state_receive_data_lpu_order; 
     static SPIStackOrder* initial_order;
     static SPIStackOrder* set_current_order;
-    static SPIStackOrder* start_control_order;
+    static SPIStackOrder* start_control_1dof_order;
     static SPIStackOrder* stop_control_order;
     static SPIStackOrder* start_pwm_order;
     static SPIStackOrder* stop_pwm_order;

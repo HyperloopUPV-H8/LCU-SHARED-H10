@@ -33,6 +33,7 @@ SPIBasePacket* SPI_DATA::current_ldu_packet = nullptr;
 SPIBasePacket* SPI_DATA::booster_control_packet = nullptr;
 SPIBasePacket* SPI_DATA::data_refs_packet = nullptr;
 SPIBasePacket* SPI_DATA::vbat_packet = nullptr;
+SPIBasePacket* SPI_DATA::distance_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
@@ -40,7 +41,7 @@ SPIStackOrder* SPI_DATA::receive_data_airgap_order = nullptr;
 SPIStackOrder* SPI_DATA::initial_order = nullptr;
 SPIStackOrder* SPI_DATA::send_state_receive_data_lpu_order = nullptr;
 SPIStackOrder* SPI_DATA::set_current_order = nullptr;
-SPIStackOrder* SPI_DATA::start_control_order = nullptr;
+SPIStackOrder* SPI_DATA::start_control_1dof_order = nullptr;
 SPIStackOrder* SPI_DATA::stop_control_order = nullptr;
 SPIStackOrder* SPI_DATA::start_pwm_order = nullptr;
 SPIStackOrder* SPI_DATA::stop_pwm_order = nullptr;
@@ -59,7 +60,7 @@ void SPI_DATA::start()
 {
     LDU_packet = new SPIPacket<9, PACKET_LDU_TYPE>(&id_ldu, &duty, &frequency);
     
-    id_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
+    id_ldu_packet = new SPIPacket<1, uint8_t>(&id_ldu);
 
     data_LPU_slave_packet = new SPIPacket<83, PACKET_STATES_TYPE, SHUNT_ARR_TYPE, VBAT_ARR_TYPE>(
         curr_state, curr_state_horizontal, curr_state_vertical,
@@ -75,6 +76,7 @@ void SPI_DATA::start()
     nonePacket = new SPIPacket<0>;
 
     current_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_current);
+    distance_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
     booster_control_packet = new SPIPacket<1, uint8_t>(&booster_status);
 
     vbat_packet = new SPIPacket<4, float>(
@@ -94,11 +96,11 @@ void SPI_DATA::start()
 
     set_current_order = new SPIStackOrder(SET_DESIRED_CURRENT_ID, *current_ldu_packet, *nonePacket);
 
-    start_control_order = new SPIStackOrder(START_CONTROL_SLAVE_ID, *id_ldu_packet, *nonePacket);
+    start_control_1dof_order = new SPIStackOrder(START_CONTROL_1DOF_ID, *distance_packet, *nonePacket);
     stop_control_order = new SPIStackOrder(STOP_CONTROL_SLAVE_ID, *nonePacket, *nonePacket);
 
-    start_pwm_order = new SPIStackOrder(START_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
-    stop_pwm_order = new SPIStackOrder(STOP_PWM_SLAVE_ID, *current_ldu_packet, *nonePacket);
+    start_pwm_order = new SPIStackOrder(START_PWM_SLAVE_ID, *id_ldu_packet, *nonePacket);
+    stop_pwm_order = new SPIStackOrder(STOP_PWM_SLAVE_ID, *id_ldu_packet, *nonePacket);
 
     fault_order = new SPIStackOrder(FAULT_ID, *nonePacket, *nonePacket);
     booster_control_order = new SPIStackOrder(ENTER_BOOSTER_ID, *booster_control_packet, *nonePacket);
