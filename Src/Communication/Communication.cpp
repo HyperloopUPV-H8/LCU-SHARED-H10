@@ -110,7 +110,7 @@ void SPI_DATA::start()
 
     fault_order = new SPIStackOrder(FAULT_ID, *nonePacket, *nonePacket);
     booster_control_order = new SPIStackOrder(ENTER_BOOSTER_ID, *booster_control_packet, *nonePacket);
-    start_3dof_order = new SPIStackOrder(START_CONTROL_3DOF_ID, *nonePacket, *nonePacket);
+    start_3dof_order = new SPIStackOrder(START_CONTROL_3DOF_ID, *distance_packet, *nonePacket);
     
     send_fixed_vbat_order = new SPIStackOrder(VBAT_ID, *vbat_packet, *nonePacket);
 
