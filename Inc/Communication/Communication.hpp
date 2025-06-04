@@ -17,7 +17,7 @@
 
 #define SEND_STATE_RECV_LPU_ID 8888
 #define SET_DESIRED_CURRENT_ID 8889
-#define START_CONTROL_SLAVE_ID 8887
+#define START_CONTROL_1DOF_ID 8887
 #define STOP_CONTROL_SLAVE_ID 8886
 #define START_PWM_SLAVE_ID 8885
 #define STOP_PWM_SLAVE_ID 8884
@@ -26,6 +26,7 @@
 #define RECEIVE_REF_ID 8881
 #define FAULT_ID 7777
 #define VBAT_ID 8880
+#define START_CONTROL_3DOF_ID 8879
 
 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
@@ -37,6 +38,7 @@
 #define LDU_EXIT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
 #define DIS_REF_ARR_TYPE float, float, float, float, float, float, float, float
 #define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
+#define DIST_AND_ROT_3DOF_TYPE float, float, float, float, float
 
 extern uint8_t *curr_state;
 extern uint8_t *curr_state_horizontal;
@@ -54,6 +56,9 @@ class SPI_DATA
     static uint32_t frequency;
     static uint8_t id_buffer;
 
+    //3dof values
+    static float values_rot_and_dis[5];
+
     static uint8_t confirm_byte;
     static uint8_t en_buffer_byte;
 
@@ -68,6 +73,7 @@ class SPI_DATA
     static SPIBasePacket *booster_control_packet;
     static SPIBasePacket *data_refs_packet;
     static SPIBasePacket *vbat_packet;
+    static SPIBasePacket *distance_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;
@@ -75,7 +81,7 @@ class SPI_DATA
     static SPIStackOrder* send_state_receive_data_lpu_order; 
     static SPIStackOrder* initial_order;
     static SPIStackOrder* set_current_order;
-    static SPIStackOrder* start_control_order;
+    static SPIStackOrder* start_control_1dof_order;
     static SPIStackOrder* stop_control_order;
     static SPIStackOrder* start_pwm_order;
     static SPIStackOrder* stop_pwm_order;
@@ -83,6 +89,7 @@ class SPI_DATA
     static SPIStackOrder* receive_refs_order;
     static SPIStackOrder* fault_order;
     static SPIStackOrder* send_fixed_vbat_order;
+    static SPIStackOrder* start_3dof_order;
 
     static float shunt_arr[10];
     static float vbat_arr[10];
