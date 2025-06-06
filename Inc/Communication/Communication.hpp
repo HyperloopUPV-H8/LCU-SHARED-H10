@@ -57,6 +57,7 @@ class SPI_DATA
     static uint8_t id_buffer;
 
     //3dof values
+    static uint8_t use_5dof;
     static float values_rot_and_dis[5];
 
     static uint8_t confirm_byte;
@@ -74,6 +75,7 @@ class SPI_DATA
     static SPIBasePacket *data_refs_packet;
     static SPIBasePacket *vbat_packet;
     static SPIBasePacket *distance_packet;
+    static SPIBasePacket *levitation_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;

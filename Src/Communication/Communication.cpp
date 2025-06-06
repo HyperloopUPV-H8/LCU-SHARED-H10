@@ -21,6 +21,7 @@ uint32_t SPI_DATA::frequency = 0;
 uint8_t SPI_DATA::id_buffer = 0;
 
 uint8_t SPI_DATA::spi_id = 0;
+uint8_t SPI_DATA::use_5dof = 0;
 uint8_t SPI_DATA::en_buffer_byte = 0;
 float SPI_DATA::desired_distance = 0.0;
 float SPI_DATA::vbat_fixed = 200.0F;
@@ -36,6 +37,7 @@ SPIBasePacket* SPI_DATA::booster_control_packet = nullptr;
 SPIBasePacket* SPI_DATA::data_refs_packet = nullptr;
 SPIBasePacket* SPI_DATA::vbat_packet = nullptr;
 SPIBasePacket* SPI_DATA::distance_packet = nullptr;
+SPIBasePacket* SPI_DATA::levitation_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
@@ -83,6 +85,7 @@ void SPI_DATA::start()
 
     current_ldu_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_current);
     distance_packet = new SPIPacket<5, uint8_t, float>(&id_ldu, &desired_distance);
+    levitation_packet = new SPIPacket<5, uint8_t, float>(&use_5dof, &desired_distance);
     booster_control_packet = new SPIPacket<1, uint8_t>(&booster_status);
 
     vbat_packet = new SPIPacket<4, float>(
@@ -110,7 +113,7 @@ void SPI_DATA::start()
 
     fault_order = new SPIStackOrder(FAULT_ID, *nonePacket, *nonePacket);
     booster_control_order = new SPIStackOrder(ENTER_BOOSTER_ID, *booster_control_packet, *nonePacket);
-    start_3dof_order = new SPIStackOrder(START_CONTROL_3DOF_ID, *distance_packet, *nonePacket);
+    start_3dof_order = new SPIStackOrder(START_CONTROL_3DOF_ID, *levitation_packet, *nonePacket);
     
     send_fixed_vbat_order = new SPIStackOrder(VBAT_ID, *vbat_packet, *nonePacket);
 
