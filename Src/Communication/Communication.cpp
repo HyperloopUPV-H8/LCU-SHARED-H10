@@ -53,6 +53,7 @@ SPIStackOrder* SPI_DATA::receive_refs_order = nullptr;
 SPIStackOrder* SPI_DATA::fault_order = nullptr;
 SPIStackOrder* SPI_DATA::send_fixed_vbat_order = nullptr;
 SPIStackOrder* SPI_DATA::booster_control_order = nullptr;
+SPIStackOrder* SPI_DATA::stick_down_order = nullptr;
 SPIStackOrder* SPI_DATA::start_3dof_order = nullptr;
 
 void SPI_DATA::inscribe_spi()
@@ -116,6 +117,7 @@ void SPI_DATA::start()
     start_3dof_order = new SPIStackOrder(START_CONTROL_3DOF_ID, *levitation_packet, *nonePacket);
     
     send_fixed_vbat_order = new SPIStackOrder(VBAT_ID, *vbat_packet, *nonePacket);
+    stick_down_order = new SPIStackOrder(STICK_DOWN_ID, *nonePacket, *nonePacket);
 
 }
 

@@ -27,6 +27,7 @@
 #define FAULT_ID 7777
 #define VBAT_ID 8880
 #define START_CONTROL_3DOF_ID 8879
+#define STICK_DOWN_ID 8878
 
 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
@@ -91,6 +92,7 @@ class SPI_DATA
     static SPIStackOrder* receive_refs_order;
     static SPIStackOrder* fault_order;
     static SPIStackOrder* send_fixed_vbat_order;
+    static SPIStackOrder* stick_down_order;
     static SPIStackOrder* start_3dof_order;
 
     static float shunt_arr[10];
