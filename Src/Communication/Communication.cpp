@@ -12,6 +12,7 @@ float SPI_DATA::dis_exit[8] = {};
 float SPI_DATA::airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 float SPI_DATA::values_rot_and_dis[5] = {};
+float SPI_DATA::multi_current_arr[4] = {};
 
 uint8_t SPI_DATA::id_ldu = 0;
 uint8_t SPI_DATA::booster_status = 0;
@@ -38,6 +39,7 @@ SPIBasePacket* SPI_DATA::data_refs_packet = nullptr;
 SPIBasePacket* SPI_DATA::vbat_packet = nullptr;
 SPIBasePacket* SPI_DATA::distance_packet = nullptr;
 SPIBasePacket* SPI_DATA::levitation_packet = nullptr;
+SPIBasePacket* SPI_DATA::multi_current_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
@@ -55,6 +57,7 @@ SPIStackOrder* SPI_DATA::send_fixed_vbat_order = nullptr;
 SPIStackOrder* SPI_DATA::booster_control_order = nullptr;
 SPIStackOrder* SPI_DATA::stick_down_order = nullptr;
 SPIStackOrder* SPI_DATA::start_3dof_order = nullptr;
+SPIStackOrder* SPI_DATA::multi_current_order = nullptr;
 
 void SPI_DATA::inscribe_spi()
 {
@@ -93,6 +96,10 @@ void SPI_DATA::start()
         &vbat_fixed
     );
 
+    multi_current_packet = new SPIPacket <4*4, MULTI_CURRENT_TYPE>(
+        &multi_current_arr[0], &multi_current_arr[1], &multi_current_arr[2], &multi_current_arr[3]
+    );
+
     initial_order = new SPIStackOrder(STATE_ID, *nonePacket, *nonePacket);
 
 
@@ -118,6 +125,7 @@ void SPI_DATA::start()
     
     send_fixed_vbat_order = new SPIStackOrder(VBAT_ID, *vbat_packet, *nonePacket);
     stick_down_order = new SPIStackOrder(STICK_DOWN_ID, *nonePacket, *nonePacket);
+    multi_current_order = new SPIStackOrder(MULTI_CURRENT_CONTROL_ID, *multi_current_packet, *nonePacket);
 
 }
 

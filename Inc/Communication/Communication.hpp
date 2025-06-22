@@ -28,6 +28,7 @@
 #define VBAT_ID 8880
 #define START_CONTROL_3DOF_ID 8879
 #define STICK_DOWN_ID 8878
+#define MULTI_CURRENT_CONTROL_ID 8877
 
 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
@@ -40,6 +41,7 @@
 #define DIS_REF_ARR_TYPE float, float, float, float, float, float, float, float
 #define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
 #define DIST_AND_ROT_3DOF_TYPE float, float, float, float, float
+#define MULTI_CURRENT_TYPE float, float, float, float
 
 extern uint8_t *curr_state;
 extern uint8_t *curr_state_horizontal;
@@ -77,6 +79,7 @@ class SPI_DATA
     static SPIBasePacket *vbat_packet;
     static SPIBasePacket *distance_packet;
     static SPIBasePacket *levitation_packet;
+    static SPIBasePacket *multi_current_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;
@@ -94,6 +97,7 @@ class SPI_DATA
     static SPIStackOrder* send_fixed_vbat_order;
     static SPIStackOrder* stick_down_order;
     static SPIStackOrder* start_3dof_order;
+    static SPIStackOrder* multi_current_order;
 
     static float shunt_arr[10];
     static float vbat_arr[10];
@@ -104,6 +108,7 @@ class SPI_DATA
     static float dis_exit[8];
     static float dis_ref[8];
     static float vbat_fixed;
+    static float multi_current_arr[4];
 
 
 
