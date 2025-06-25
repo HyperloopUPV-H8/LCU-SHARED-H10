@@ -13,6 +13,7 @@ float SPI_DATA::airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 float SPI_DATA::values_rot_and_dis[5] = {};
 float SPI_DATA::multi_current_arr[4] = {};
+float SPI_DATA::matrix_input[15] = {};
 
 uint8_t SPI_DATA::id_ldu = 0;
 uint8_t SPI_DATA::booster_status = 0;
@@ -40,6 +41,7 @@ SPIBasePacket* SPI_DATA::vbat_packet = nullptr;
 SPIBasePacket* SPI_DATA::distance_packet = nullptr;
 SPIBasePacket* SPI_DATA::levitation_packet = nullptr;
 SPIBasePacket* SPI_DATA::multi_current_packet = nullptr;
+SPIBasePacket* SPI_DATA::matrix_input_packet = nullptr;
 
 SPIStackOrder* SPI_DATA::LDU_order = nullptr;
 SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
@@ -58,6 +60,8 @@ SPIStackOrder* SPI_DATA::booster_control_order = nullptr;
 SPIStackOrder* SPI_DATA::stick_down_order = nullptr;
 SPIStackOrder* SPI_DATA::start_3dof_order = nullptr;
 SPIStackOrder* SPI_DATA::multi_current_order = nullptr;
+SPIStackOrder* SPI_DATA::matrix_input_order = nullptr;
+
 
 void SPI_DATA::inscribe_spi()
 {
@@ -82,6 +86,10 @@ void SPI_DATA::start()
     );
     data_arigap_packet = new SPIPacket<52, AIRGAP_ARR_TYPE, DIST_AND_ROT_3DOF_TYPE>(&airgap_arr[0], &airgap_arr[1], &airgap_arr[2], &airgap_arr[3], &airgap_arr[4], &airgap_arr[5], &airgap_arr[6], &airgap_arr[7],
         &values_rot_and_dis[0], &values_rot_and_dis[1], &values_rot_and_dis[2], &values_rot_and_dis[3], &values_rot_and_dis[4]
+    );
+
+    matrix_input_packet = new SPIPacket<60, MATRIX_INPUT_TYPE>(
+        &matrix_input[0], &matrix_input[1], &matrix_input[2], &matrix_input[3], &matrix_input[4], &matrix_input[5], &matrix_input[6], &matrix_input[7], &matrix_input[8], &matrix_input[9], &matrix_input[10], &matrix_input[11], &matrix_input[12], &matrix_input[13], &matrix_input[14]
     );
     
     en_buffer_packet = new SPIPacket<1, uint8_t>(&en_buffer_byte);
@@ -126,6 +134,7 @@ void SPI_DATA::start()
     send_fixed_vbat_order = new SPIStackOrder(VBAT_ID, *vbat_packet, *nonePacket);
     stick_down_order = new SPIStackOrder(STICK_DOWN_ID, *nonePacket, *nonePacket);
     multi_current_order = new SPIStackOrder(MULTI_CURRENT_CONTROL_ID, *multi_current_packet, *nonePacket);
+    matrix_input_order = new SPIStackOrder(MATRIX_INPUT_ID, *nonePacket, *matrix_input_packet);
 
 }
 

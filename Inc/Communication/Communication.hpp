@@ -29,6 +29,7 @@
 #define START_CONTROL_3DOF_ID 8879
 #define STICK_DOWN_ID 8878
 #define MULTI_CURRENT_CONTROL_ID 8877
+#define MATRIX_INPUT_ID 8876
 
 
 #define PACKET_LDU_TYPE uint8_t, float, uint32_t
@@ -42,6 +43,7 @@
 #define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
 #define DIST_AND_ROT_3DOF_TYPE float, float, float, float, float
 #define MULTI_CURRENT_TYPE float, float, float, float
+#define MATRIX_INPUT_TYPE float, float, float, float, float, float, float, float, float, float, float, float, float, float, float
 
 extern uint8_t *curr_state;
 extern uint8_t *curr_state_horizontal;
@@ -62,6 +64,7 @@ class SPI_DATA
     //3dof values
     static uint8_t use_5dof;
     static float values_rot_and_dis[5];
+    static float matrix_input[15];
 
     static uint8_t confirm_byte;
     static uint8_t en_buffer_byte;
@@ -80,6 +83,7 @@ class SPI_DATA
     static SPIBasePacket *distance_packet;
     static SPIBasePacket *levitation_packet;
     static SPIBasePacket *multi_current_packet;
+    static SPIBasePacket *matrix_input_packet;
 
     static SPIStackOrder* LDU_order;
     static SPIStackOrder* en_LDU_buffer_order;
@@ -98,6 +102,7 @@ class SPI_DATA
     static SPIStackOrder* stick_down_order;
     static SPIStackOrder* start_3dof_order;
     static SPIStackOrder* multi_current_order;
+    static SPIStackOrder* matrix_input_order;
 
     static float shunt_arr[10];
     static float vbat_arr[10];
