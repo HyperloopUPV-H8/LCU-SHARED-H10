@@ -4,47 +4,6 @@
 
 #define SPI_RS_PIN PB2
 
-#define SET_LDU_ID 9999
-#define EN_LDU_ID 9998
-#define RST_LDU_ID 9997
-#define STATE_ID 9996
-#define DIS_LDU_ID 9996
-#define CURR_LDU_ID 9995
-#define START_CONTROL_ID 9994
-#define STOP_CONTROL_ID 9993
-#define START_PWM_ID 9992
-#define STOP_PWM_ID 9991
-
-#define SEND_STATE_RECV_LPU_ID 8888
-#define SET_DESIRED_CURRENT_ID 8889
-#define START_CONTROL_1DOF_ID 8887
-#define STOP_CONTROL_SLAVE_ID 8886
-#define START_PWM_SLAVE_ID 8885
-#define STOP_PWM_SLAVE_ID 8884
-#define RECEIVE_AIRGAP_ID 8883
-#define ENTER_BOOSTER_ID 8882
-#define RECEIVE_REF_ID 8881
-#define FAULT_ID 7777
-#define VBAT_ID 8880
-#define START_CONTROL_3DOF_ID 8879
-#define STICK_DOWN_ID 8878
-#define MULTI_CURRENT_CONTROL_ID 8877
-#define MATRIX_INPUT_ID 8876
-
-
-#define PACKET_LDU_TYPE uint8_t, float, uint32_t
-#define PACKET_STATES_TYPE uint8_t, uint8_t, uint8_t, uint8_t
-#define SHUNT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
-#define AIRGAP_ARR_TYPE float, float, float, float, float, float, float, float
-#define VBAT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
-#define LDU_REF_ARR_TYPE float, float, float, float, float, float, float, float, float, float
-#define LDU_EXIT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
-#define DIS_REF_ARR_TYPE float, float, float, float, float, float, float, float
-#define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
-#define DIST_AND_ROT_3DOF_TYPE float, float, float, float, float
-#define MULTI_CURRENT_TYPE float, float, float, float
-#define MATRIX_INPUT_TYPE float, float, float, float, float, float, float, float, float, float, float, float, float, float, float
-
 extern uint8_t *curr_state;
 extern uint8_t *curr_state_horizontal;
 extern uint8_t *curr_state_vertical;
@@ -54,67 +13,67 @@ class SPI_DATA
 {
     public:
     //shared values
-    static uint8_t id_ldu;
-    static uint8_t booster_status;
-    static float duty;
-    static float desired_current;
-    static float desired_distance;
-    static uint32_t frequency;
-    static uint8_t id_buffer;
+    inline static uint8_t id_ldu{0};
+    inline static uint8_t booster_status{0};
+    inline static float duty{0.0};
+    inline static float desired_current{0.0};
+    inline static float desired_distance{0.0};
+    inline static uint32_t frequency{0};
+    inline static uint8_t id_buffer{0};
 
     //3dof values
-    static uint8_t use_5dof;
-    static float values_rot_and_dis[5];
-    static float matrix_input[15];
+    inline static uint8_t use_5dof{0};
+    inline static float values_rot_and_dis[5]{};
+    inline static float matrix_input[15]{};
 
-    static uint8_t confirm_byte;
-    static uint8_t en_buffer_byte;
+    inline static uint8_t confirm_byte{0};
+    inline static uint8_t en_buffer_byte{0};
 
-    static uint8_t spi_id;
-    static SPIBasePacket *LDU_packet;
-    static SPIBasePacket *id_ldu_packet;
-    static SPIBasePacket *nonePacket;
-    static SPIBasePacket *en_buffer_packet;
-    static SPIBasePacket *data_LPU_slave_packet;
-    static SPIBasePacket *data_arigap_packet;
-    static SPIBasePacket *current_ldu_packet;
-    static SPIBasePacket *booster_control_packet;
-    static SPIBasePacket *data_refs_packet;
-    static SPIBasePacket *vbat_packet;
-    static SPIBasePacket *distance_packet;
-    static SPIBasePacket *levitation_packet;
-    static SPIBasePacket *multi_current_packet;
-    static SPIBasePacket *matrix_input_packet;
+    inline static uint8_t spi_id{0};
+    inline static SPIBasePacket *LDU_packet{nullptr};
+    inline static SPIBasePacket *id_ldu_packet{nullptr};
+    inline static SPIBasePacket *nonePacket{nullptr};
+    inline static SPIBasePacket *en_buffer_packet{nullptr};
+    inline static SPIBasePacket *data_LPU_slave_packet{nullptr};
+    inline static SPIBasePacket *data_arigap_packet{nullptr};
+    inline static SPIBasePacket *current_ldu_packet{nullptr};
+    inline static SPIBasePacket *booster_control_packet{nullptr};
+    inline static SPIBasePacket *data_refs_packet{nullptr};
+    inline static SPIBasePacket *vbat_packet{nullptr};
+    inline static SPIBasePacket *distance_packet{nullptr};
+    inline static SPIBasePacket *levitation_packet{nullptr};
+    inline static SPIBasePacket *multi_current_packet{nullptr};
+    inline static SPIBasePacket *matrix_input_packet{nullptr};
 
-    static SPIStackOrder* LDU_order;
-    static SPIStackOrder* en_LDU_buffer_order;
-    static SPIStackOrder* receive_data_airgap_order;
-    static SPIStackOrder* send_state_receive_data_lpu_order; 
-    static SPIStackOrder* initial_order;
-    static SPIStackOrder* set_current_order;
-    static SPIStackOrder* start_control_1dof_order;
-    static SPIStackOrder* stop_control_order;
-    static SPIStackOrder* start_pwm_order;
-    static SPIStackOrder* stop_pwm_order;
-    static SPIStackOrder* booster_control_order;
-    static SPIStackOrder* receive_refs_order;
-    static SPIStackOrder* fault_order;
-    static SPIStackOrder* send_fixed_vbat_order;
-    static SPIStackOrder* stick_down_order;
-    static SPIStackOrder* start_3dof_order;
-    static SPIStackOrder* multi_current_order;
-    static SPIStackOrder* matrix_input_order;
+    inline static SPIStackOrder* LDU_order{nullptr};
+    inline static SPIStackOrder* en_LDU_buffer_order{nullptr};
+    inline static SPIStackOrder* receive_data_airgap_order{nullptr};
+    inline static SPIStackOrder* send_state_receive_data_lpu_order{nullptr}; 
+    inline static SPIStackOrder* initial_order{nullptr};
+    inline static SPIStackOrder* set_current_order{nullptr};
+    inline static SPIStackOrder* start_control_1dof_order{nullptr};
+    inline static SPIStackOrder* stop_control_order{nullptr};
+    inline static SPIStackOrder* start_pwm_order{nullptr};
+    inline static SPIStackOrder* stop_pwm_order{nullptr};
+    inline static SPIStackOrder* booster_control_order{nullptr};
+    inline static SPIStackOrder* receive_refs_order{nullptr};
+    inline static SPIStackOrder* fault_order{nullptr};
+    inline static SPIStackOrder* send_fixed_vbat_order{nullptr};
+    inline static SPIStackOrder* stick_down_order{nullptr};
+    inline static SPIStackOrder* start_3dof_order{nullptr};
+    inline static SPIStackOrder* multi_current_order{nullptr};
+    inline static SPIStackOrder* matrix_input_order{nullptr};
 
-    static float shunt_arr[10];
-    static float vbat_arr[10];
-    static float ldu_ref[10];
-    static float ldu_exit[10];
+    inline static float shunt_arr[10]{};
+    inline static float vbat_arr[10]{};
+    inline static float ldu_ref[10]{};
+    inline static float ldu_exit[10]{};
 
-    static float airgap_arr[8];
-    static float dis_exit[8];
-    static float dis_ref[8];
-    static float vbat_fixed;
-    static float multi_current_arr[4];
+    inline static float airgap_arr[8]{};
+    inline static float dis_exit[8]{};
+    inline static float dis_ref[8]{};
+    inline static float vbat_fixed{255.0};
+    inline static float multi_current_arr[4]{};
 
 
 

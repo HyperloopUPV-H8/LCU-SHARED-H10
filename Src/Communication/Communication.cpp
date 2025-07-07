@@ -1,66 +1,47 @@
 #include "Communication/Communication.hpp"
 
-float SPI_DATA::shunt_arr[10] = {
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-};
-float SPI_DATA::vbat_arr[10] = {};
-float SPI_DATA::ldu_ref[10] = {};
-float SPI_DATA::ldu_exit[10] = {};
-float SPI_DATA::dis_ref[8] = {};
-float SPI_DATA::dis_exit[8] = {};
 
-float SPI_DATA::airgap_arr[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-float SPI_DATA::values_rot_and_dis[5] = {};
-float SPI_DATA::multi_current_arr[4] = {};
-float SPI_DATA::matrix_input[15] = {};
+#define SET_LDU_ID 9999
+#define EN_LDU_ID 9998
+#define RST_LDU_ID 9997
+#define STATE_ID 9996
+#define DIS_LDU_ID 9996
+#define CURR_LDU_ID 9995
+#define START_CONTROL_ID 9994
+#define STOP_CONTROL_ID 9993
+#define START_PWM_ID 9992
+#define STOP_PWM_ID 9991
 
-uint8_t SPI_DATA::id_ldu = 0;
-uint8_t SPI_DATA::booster_status = 0;
-float SPI_DATA::duty = 0.0;
-float SPI_DATA::desired_current = 0.0;
-uint32_t SPI_DATA::frequency = 0;
-uint8_t SPI_DATA::id_buffer = 0;
+#define SEND_STATE_RECV_LPU_ID 8888
+#define SET_DESIRED_CURRENT_ID 8889
+#define START_CONTROL_1DOF_ID 8887
+#define STOP_CONTROL_SLAVE_ID 8886
+#define START_PWM_SLAVE_ID 8885
+#define STOP_PWM_SLAVE_ID 8884
+#define RECEIVE_AIRGAP_ID 8883
+#define ENTER_BOOSTER_ID 8882
+#define RECEIVE_REF_ID 8881
+#define FAULT_ID 7777
+#define VBAT_ID 8880
+#define START_CONTROL_3DOF_ID 8879
+#define STICK_DOWN_ID 8878
+#define MULTI_CURRENT_CONTROL_ID 8877
+#define MATRIX_INPUT_ID 8876
 
-uint8_t SPI_DATA::spi_id = 0;
-uint8_t SPI_DATA::use_5dof = 0;
-uint8_t SPI_DATA::en_buffer_byte = 0;
-float SPI_DATA::desired_distance = 0.0;
-float SPI_DATA::vbat_fixed = 200.0F;
 
-SPIBasePacket* SPI_DATA::LDU_packet = nullptr;
-SPIBasePacket* SPI_DATA::id_ldu_packet = nullptr;
-SPIBasePacket* SPI_DATA::data_LPU_slave_packet = nullptr;
-SPIBasePacket* SPI_DATA::data_arigap_packet = nullptr;
-SPIBasePacket* SPI_DATA::nonePacket = nullptr;
-SPIBasePacket* SPI_DATA::en_buffer_packet = nullptr;
-SPIBasePacket* SPI_DATA::current_ldu_packet = nullptr;
-SPIBasePacket* SPI_DATA::booster_control_packet = nullptr;
-SPIBasePacket* SPI_DATA::data_refs_packet = nullptr;
-SPIBasePacket* SPI_DATA::vbat_packet = nullptr;
-SPIBasePacket* SPI_DATA::distance_packet = nullptr;
-SPIBasePacket* SPI_DATA::levitation_packet = nullptr;
-SPIBasePacket* SPI_DATA::multi_current_packet = nullptr;
-SPIBasePacket* SPI_DATA::matrix_input_packet = nullptr;
-
-SPIStackOrder* SPI_DATA::LDU_order = nullptr;
-SPIStackOrder* SPI_DATA::en_LDU_buffer_order = nullptr;
-SPIStackOrder* SPI_DATA::receive_data_airgap_order = nullptr;
-SPIStackOrder* SPI_DATA::initial_order = nullptr;
-SPIStackOrder* SPI_DATA::send_state_receive_data_lpu_order = nullptr;
-SPIStackOrder* SPI_DATA::set_current_order = nullptr;
-SPIStackOrder* SPI_DATA::start_control_1dof_order = nullptr;
-SPIStackOrder* SPI_DATA::stop_control_order = nullptr;
-SPIStackOrder* SPI_DATA::start_pwm_order = nullptr;
-SPIStackOrder* SPI_DATA::stop_pwm_order = nullptr;
-SPIStackOrder* SPI_DATA::receive_refs_order = nullptr;
-SPIStackOrder* SPI_DATA::fault_order = nullptr;
-SPIStackOrder* SPI_DATA::send_fixed_vbat_order = nullptr;
-SPIStackOrder* SPI_DATA::booster_control_order = nullptr;
-SPIStackOrder* SPI_DATA::stick_down_order = nullptr;
-SPIStackOrder* SPI_DATA::start_3dof_order = nullptr;
-SPIStackOrder* SPI_DATA::multi_current_order = nullptr;
-SPIStackOrder* SPI_DATA::matrix_input_order = nullptr;
+#define PACKET_LDU_TYPE uint8_t, float, uint32_t
+#define PACKET_STATES_TYPE uint8_t, uint8_t, uint8_t, uint8_t
+#define SHUNT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
+#define AIRGAP_ARR_TYPE float, float, float, float, float, float, float, float
+#define VBAT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
+#define LDU_REF_ARR_TYPE float, float, float, float, float, float, float, float, float, float
+#define LDU_EXIT_ARR_TYPE float, float, float, float, float, float, float, float, float, float
+#define DIS_REF_ARR_TYPE float, float, float, float, float, float, float, float
+#define DIS_EXIT_ARR_TYPE float, float, float, float, float, float, float, float
+#define DIST_AND_ROT_3DOF_TYPE float, float, float, float, float
+#define MULTI_CURRENT_TYPE float, float, float, float
+#define MATRIX_INPUT_TYPE float, float, float, float, float, float, float, float, float, float, float, float, float, float, float
 
 
 void SPI_DATA::inscribe_spi()
